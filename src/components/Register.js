@@ -1,8 +1,8 @@
 import React from "react";
-import { Lin, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from "../utils/Auth";
 
-function Register () {
+export function Register (props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
@@ -10,24 +10,23 @@ function Register () {
 
     const navigate = useNavigate();
 
-    const handleEmailChange = (e) => {setEmail(e.target.value)};
-    const handlePasswordChange = (e) => {setPassword(e.target.value)};
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value)
+    };
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
+    };
     //передать эти функции в инпуты
 
     const handleSubmit (e) => {
         e.preventDefault();
-        // if (!email || !password) {
-        //     setErrorMessage('Write atleast something there')    
-        // }
-
-        auth.register({email, password})
-            .then((userData) => {
-                setTooltipOpen(true);
-                setStatus(true)
-            })
-            .catch((err) => {
-                setTooltipOpen(true);
-                setStatus(false)
-            })
+        props.handleRegister(password, email);
+        setPassword('');
+        setEmail('');
     }
+
+    return (
+        <>
+        </>
+    )
 }

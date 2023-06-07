@@ -1,24 +1,24 @@
 import React from "react";
-import { Lin, useNavigate } from 'react-router-dom';
+//import { Link, useNavigate } from 'react-router-dom';
 
-function Login() {
+export function Login(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+
+    //const navigate = useNavigate();
 
     const handleEmailChange = (e) => {setEmail(e.target.value)};
     const handlePasswordChange = (e) => {setPassword(e.target.value)};
 
-    const handleSubmit (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        auth.authorizer({email, password})
-            .then((userData) => {
-                setTooltipOpen(true);
-                setStatus(true)
-            })
-            .catch((err) => {
-                setTooltipOpen(true);
-                setStatus(false)
-            })
+        props.handleLogin(password, email);
+        setPassword('');
+        setEmail('');
     }
+
+    return (
+        <>
+        </>
+    )
 }

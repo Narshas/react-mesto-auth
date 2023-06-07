@@ -12,6 +12,10 @@ import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
 import { ProtectedRoute } from "./ProtectedRoute";
 
+import { Login } from "./Login";
+import { Register } from "./Register";
+import { auth } from "../utils/Auth";
+
 export function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -23,8 +27,10 @@ export function App() {
   const [cards, setCards] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [loggedIn, setLoggedIn] = React.useState(false); //попробовать использовать и для тултипа
+  const [infoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -112,6 +118,41 @@ export function App() {
       })
   }
 
+  const handleLogin = ({password, email}) => {
+    auth.authorizer({password, email})
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          setEmail(email);
+          setPassword(password);
+        }
+      })
+      .catch((err) => {
+        console.log(`we've got a problem: ${err}`);
+        setInfoTooltipOpen(true); //нужен ли и тут тултип?
+        //передать маркер для тултипа
+      })
+  }
+
+  const handleRegister = () => {
+    auth.register({password, email})
+      .then(() => {
+        setInfoTooltipOpen(true);
+        //передать маркер для тултипа
+      })
+      .catch(() => {
+        console.log(`we've got a problem: ${err}`);
+        setInfoTooltipOpen(true);
+        //передать маркер для тултипа
+      })
+    }
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setLoggedIn(false)
+  }
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -142,6 +183,21 @@ export function App() {
 
   }, []);
 
+  React.useEffect(() => {
+    const currentToken = localStorage.getItem('jwt');
+    if (currentToken) {
+      auth.tokenCheck(currentToken)
+        .then((res) => {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          history.push('/');
+        })
+        .catch((err) => {
+          console.log(`we've got a problem: ${err}`)
+        })
+    } 
+  }, [loggedIn]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
             {/* Поддерево, в котором будет доступен контекст */}
@@ -159,20 +215,53 @@ export function App() {
           onCardClick={handleCardClick} 
           onCardLike={handleCardLike} 
           onCardDelete={handleDeleteClick} />}/>
-          <Route path = { `/sign-up` }>
+          <Route path = { `/sign-up` } >
+            <Login 
+              handleLogin = { handleLogin }
+              isOpen = { infoTooltipOpen }
+              onClose = { closeAllPopups }
+              loggedIn = { loggedIn }
+              />
           </Route>
           <Route path = { `/sign-in` }>
+            <Register
+              handleRegister={ handleRegister }
+              isOpen = { infoTooltipOpen }
+              onClose = { closeAllPopups }
+              loggedIn = { loggedIn }
+            />
           </Route>
         </ Routes>
         <Footer />
-        <ImagePopup cardData={selectedCard} onClose={closeAllPopups} isOpen={isZoomPopupOpen} />
+        <infoTooltip
+          card = {selectedCard}
+          isOpen = {infoTooltipOpen}
+          onClose = {closeAllPopups}
+          loggedIn = { loggedIn }
+        />
 
-        <EditAvatarPopup isLoading={isLoading} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
+        <ImagePopup 
+          cardData={selectedCard} 
+          onClose={closeAllPopups} 
+          isOpen={isZoomPopupOpen} />
 
-        <EditProfilePopup isLoading={isLoading} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+        <EditAvatarPopup 
+          isLoading={isLoading} 
+          isOpen={isEditAvatarPopupOpen} 
+          onClose={closeAllPopups} 
+          onUpdateAvatar={handleUpdateAvatar}/>
 
-        <AddPlacePopup isLoading={isLoading} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
-        
+        <EditProfilePopup 
+          isLoading={isLoading} 
+          isOpen={isEditProfilePopupOpen} 
+          onClose={closeAllPopups} 
+          onUpdateUser={handleUpdateUser}/>
+
+        <AddPlacePopup 
+          isLoading={isLoading} 
+          isOpen={isAddPlacePopupOpen} 
+          onClose={closeAllPopups} 
+          onAddPlace={handleAddPlaceSubmit}/>
 
       </div>
     </CurrentUserContext.Provider>  

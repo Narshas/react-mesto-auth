@@ -28,7 +28,7 @@ class Auth {
         .then(res => this._testRes(res))
     }
 
-    tokenCheker() {
+    tokenCheck(currentToke) {
 
     }
 
