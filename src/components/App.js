@@ -31,6 +31,7 @@ export function App() {
   const [password, setPassword] = React.useState('');
   const [loggedIn, setLoggedIn] = React.useState(false); //попробовать использовать и для тултипа
   const [infoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
+  const [isError, setIsError] = React.useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -70,7 +71,6 @@ export function App() {
         console.log(err);
       });
   }
-  
 
   function handleUpdateUser(userData) {
     setIsLoading(true);
@@ -118,6 +118,8 @@ export function App() {
       })
   }
 
+  /////================================================
+
   const handleLogin = ({password, email}) => {
     auth.authorizer({password, email})
       .then((res) => {
@@ -129,8 +131,8 @@ export function App() {
       })
       .catch((err) => {
         console.log(`we've got a problem: ${err}`);
-        setInfoTooltipOpen(true); //нужен ли и тут тултип?
-        //передать маркер для тултипа
+        setInfoTooltipOpen(true); //тут нужен тултип, чтобы не добавлять ошибку 
+        setIsError(true);
       })
   }
 
@@ -138,14 +140,13 @@ export function App() {
     auth.register({password, email})
       .then(() => {
         setInfoTooltipOpen(true);
-        //передать маркер для тултипа
+        setIsError(false);
       })
       .catch(() => {
         console.log(`we've got a problem: ${err}`);
         setInfoTooltipOpen(true);
-        //передать маркер для тултипа
+        setIsError(true);
       })
-    }
   }
 
   const handleLogout = () => {
@@ -180,7 +181,7 @@ export function App() {
         .catch((err) => {
             console.log(err);
         });
-
+dd
   }, []);
 
   React.useEffect(() => {
@@ -201,7 +202,6 @@ export function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
             {/* Поддерево, в котором будет доступен контекст */}
-
       <div className="root">
         <Header />
         <Routes>
@@ -215,20 +215,18 @@ export function App() {
           onCardClick={handleCardClick} 
           onCardLike={handleCardLike} 
           onCardDelete={handleDeleteClick} />}/>
-          <Route path = { `/sign-up` } >
+          <Route path="/sign-up" >
             <Login 
               handleLogin = { handleLogin }
               isOpen = { infoTooltipOpen }
               onClose = { closeAllPopups }
-              loggedIn = { loggedIn }
               />
           </Route>
-          <Route path = { `/sign-in` }>
+          <Route path ="/sign-in">
             <Register
               handleRegister={ handleRegister }
               isOpen = { infoTooltipOpen }
               onClose = { closeAllPopups }
-              loggedIn = { loggedIn }
             />
           </Route>
         </ Routes>
@@ -237,7 +235,7 @@ export function App() {
           card = {selectedCard}
           isOpen = {infoTooltipOpen}
           onClose = {closeAllPopups}
-          loggedIn = { loggedIn }
+          isError = { isError }
         />
 
         <ImagePopup 

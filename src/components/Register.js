@@ -18,7 +18,7 @@ export function Register (props) {
     };
     //передать эти функции в инпуты
 
-    const handleSubmit (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         props.handleRegister(password, email);
         setPassword('');

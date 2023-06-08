@@ -1,16 +1,16 @@
 import React from "react";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function infoTooltip (props) {
-    const history = useHistory;
+    
+    const navigate = useNavigate()
 
     const closeRegisterPopup = () => {
-        if(props.loggedIn) {
+        if(props.isError) {
             props.onClose()
-        } 
-        if () {
-
         }
+        navigate('/login', {replace: true}); 
+        props.onClose();
     }
 
     return (

@@ -28,10 +28,16 @@ class Auth {
         .then(res => this._testRes(res))
     }
 
-    tokenCheck(currentToke) {
-
+    tokenCheck(currentToken) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization" : `Bearer ${currentToken}`
+            },
+        })
+        .then(res => this._testRes(res))
     }
-
 }
 
-export const auth = new Auth('https://auth.nomoreparties.co')
+export const auth = new Auth('https://auth.nomoreparties.co');
