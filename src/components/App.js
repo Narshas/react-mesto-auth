@@ -216,18 +216,22 @@ dd
           onCardLike={handleCardLike} 
           onCardDelete={handleDeleteClick} />}/>
           <Route path="/sign-up" >
-            <Login 
-              handleLogin = { handleLogin }
-              isOpen = { infoTooltipOpen }
-              onClose = { closeAllPopups }
+            <>
+              <Login 
+                handleLogin = { handleLogin }
+                isOpen = { infoTooltipOpen }
+                onClose = { closeAllPopups }
               />
+              </>
           </Route>
           <Route path ="/sign-in">
-            <Register
-              handleRegister={ handleRegister }
-              isOpen = { infoTooltipOpen }
-              onClose = { closeAllPopups }
-            />
+            <>
+              <Register
+                handleRegister={ handleRegister }
+                isOpen = { infoTooltipOpen }
+                onClose = { closeAllPopups }
+              />
+            </>
           </Route>
         </ Routes>
         <Footer />
