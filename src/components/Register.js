@@ -1,14 +1,11 @@
 import React from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import { auth } from "../utils/Auth";
+import { Link} from 'react-router-dom';
 
 export function Register (props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
-    const [errorMessage, setErrorMessage] = React.useState('');
-
-    const navigate = useNavigate();
+    //const [errorMessage, setErrorMessage] = React.useState('');
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
@@ -16,7 +13,6 @@ export function Register (props) {
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
     };
-    //передать эти функции в инпуты
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,21 +22,25 @@ export function Register (props) {
     }
 
     return (
-        <div>
-            <h3></h3>
-            <form>
-                <label className="popup__label"></label>
-                <input/>
-                <span/>
-                <label className="popup__label"></label>
-                <input/>
-                <span/>
-                <button></button>
+        <div className="authorize">
+            <h3 className="authorize__title">Регистрация</h3>
+            <form className="authorize__form" onSubmit={handleSubmit}>
+                <label className="authorize__label" htmlFor="email"> </label>
+                <input className="authorize__input" onChange={handleEmailChange}
+                id="email" type="email" name="email" required value={email || ''}/>
+                <span className="authorize__input-error"/>
+                <label className="authorize__label" htmlFor="password"></label>
+                <input className="authorize__input" onChange={handlePasswordChange}
+                id="password" type="password" name="password" required 
+                value={password || ''}/>
+                <span className="authorize__input-error"/>
+                <button className="authorize__submit" type="submit" aria-label="Зарегистрироваться">
+                    Зарегистрироваться
+                </button>
             </form>
     
-            <div>
-                <p></p>
-                <Link/>
+            <div className="authorize__side-block">
+                <Link className="authorize__side-link" to="sign-in"> Уже зарегистрированы? Войти </Link>
             </div>
         </div>
     )

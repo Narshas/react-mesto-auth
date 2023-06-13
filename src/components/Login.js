@@ -1,11 +1,8 @@
 import React from "react";
-//import { Link, useNavigate } from 'react-router-dom';
 
 export function Login(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-    //const navigate = useNavigate();
 
     const handleEmailChange = (e) => {setEmail(e.target.value)};
     const handlePasswordChange = (e) => {setPassword(e.target.value)};
@@ -18,22 +15,22 @@ export function Login(props) {
     }
 
     return (
-        <div>
-            <h3></h3>
-            <form>
-                <label className="popup__label"></label>
-                <input/>
-                <span/>
-                <label className="popup__label"></label>
-                <input/>
-                <span/>
-                <button></button>
+        <div className="authorize">
+            <h3 className="authorize__title">Вход</h3>
+            <form className="authorize__form" onSubmit={handleSubmit}>
+                <label className="authorize__label" htmlFor="email"> </label>
+                <input className="authorize__input" onChange={handleEmailChange}
+                id="email" type="email" name="email" required value={email || ''}/>
+                <span className="authorize__input-error"/>
+                <label className="authorize__label" htmlFor="password"></label>
+                <input className="authorize__input" onChange={handlePasswordChange}
+                id="password" type="password" name="password" required 
+                value={password || ''}/>
+                <span className="authorize__input-error"/>
+                <button className="authorize__submit" type="submit" aria-label="Войти">
+                    Войти
+                </button>
             </form>
-    
-            <div>
-                <p></p>
-                <Link/>
-            </div>
         </div>
     )
 }

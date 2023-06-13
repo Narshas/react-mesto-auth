@@ -10,11 +10,12 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { EditProfilePopup } from "./EditProfilePopup";
 import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
-import { ProtectedRoute } from "./ProtectedRoute";
 
+import { ProtectedRoute } from "./ProtectedRoute";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { auth } from "../utils/Auth";
+import { infoTooltip } from "./InfoTooltip";
 
 export function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -118,7 +119,7 @@ export function App() {
       })
   }
 
-  /////================================================
+  //================================================
 
   const handleLogin = ({password, email}) => {
     auth.authorizer({password, email})
@@ -131,7 +132,7 @@ export function App() {
       })
       .catch((err) => {
         console.log(`we've got a problem: ${err}`);
-        setInfoTooltipOpen(true); //тут нужен тултип, чтобы не добавлять ошибку 
+        setInfoTooltipOpen(true);
         setIsError(true);
       })
   }
@@ -181,7 +182,6 @@ export function App() {
         .catch((err) => {
             console.log(err);
         });
-dd
   }, []);
 
   React.useEffect(() => {
@@ -201,9 +201,12 @@ dd
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-            {/* Поддерево, в котором будет доступен контекст */}
       <div className="root">
-        <Header />
+        <Header
+          email={email}
+          loggedIn={loggedIn}
+          handleLogout={handleLogout}
+        />
         <Routes>
           <Route path="/" element={<ProtectedRoute 
           loggedIn = { loggedIn }
@@ -222,7 +225,7 @@ dd
                 isOpen = { infoTooltipOpen }
                 onClose = { closeAllPopups }
               />
-              </>
+            </>
           </Route>
           <Route path ="/sign-in">
             <>
@@ -233,13 +236,12 @@ dd
               />
             </>
           </Route>
-        </ Routes>
+        </Routes>
         <Footer />
         <infoTooltip
-          card = {selectedCard}
           isOpen = {infoTooltipOpen}
           onClose = {closeAllPopups}
-          isError = { isError }
+          isError = {isError}
         />
 
         <ImagePopup 
