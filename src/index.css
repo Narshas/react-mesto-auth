@@ -47,6 +47,19 @@
 @import url(./blocks/popup/_active/popup_active.css);
 @import url(./blocks/popup/_type/popup_type_zoom.css);
 
+@import url(./blocks/authorize/authorize.css);
+@import url(./blocks/authorize/__form/authorize__form.css);
+@import url(./blocks/authorize/__image/authorize__image.css);
+@import url(./blocks/authorize/__info/authorize__info.css);
+@import url(./blocks/authorize/__input-error/authorize__input-error.css);
+@import url(./blocks/authorize/__input/authorize__input.css);
+@import url(./blocks/authorize/__label/authorize__label.css);
+@import url(./blocks/authorize/__response/authorize__response.css);
+@import url(./blocks/authorize/__side-block/authorize__side-block.css);
+@import url(./blocks/authorize/__side-link/authorize__side-link.css);
+@import url(./blocks/authorize/__submit/authorize__submit.css);
+@import url(./blocks/authorize/__title/authorize__title.css);
+
 @import url(./blocks/popup/__input-error/popup__input-error.css);
 @import url(./blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(./blocks/popup/__input/_invalid/popup__input_invalid.css);

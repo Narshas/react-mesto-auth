@@ -1,0 +1,6 @@
+.authorize__label {
+    padding: 0 0 30px ;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,15 @@
+.authorize {
+    padding: 0;
+    margin: 60px auto 112px;
+    max-height: 461px;
+    max-width: 358px;
+
+    
+}
+
+@media screen and (max-width: 360px) {
+    .authorize {
+        max-width: 260px;
+        margin: 40px auto 77px;
+    }
+}
