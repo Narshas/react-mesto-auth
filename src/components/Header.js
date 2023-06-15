@@ -11,17 +11,17 @@ export function Header(props) {
                 { props.loggedIn
                 ? (
                     <>
-                        <p className='header__item'>{props.email}</p>
-                        <Link onClick={props.handleLogout} className='header__item' to='/sign-in'>Выйти</Link>
+                        <p className='header__user-item'>{props.email}</p>
+                        <Link onClick={props.handleLogout} className='header__user-item' to='/sign-in'>Выйти</Link>
                     </>
                 )
                 : (
                     <>
                         <Route path='/sign-in'>
-                            <Link className='header__item' to='/sign-up'>Вход</Link>
+                            <Link className='header__user-item' to='/sign-up'>Вход</Link>
                         </Route>
                         <Route path='/sign-up'>
-                            <Link className='header__item' to='/sign-in'>Регистрация</Link>
+                            <Link className='header__user-item' to='/sign-in'>Регистрация</Link>
                         </Route>
                     </>
                 )
