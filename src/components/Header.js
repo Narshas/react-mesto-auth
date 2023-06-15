@@ -1,31 +1,22 @@
 import React from 'react';
 import logoWhite from "../images/logo-white.svg";
-import {Route, Link} from 'react-router-dom';
+import {Route, Routes, Link} from 'react-router-dom';
 
 export function Header(props) {
     return (
         <header className='header'>
-            <img src={logoWhite} alt="Логотип сервиса Место" className='header__logo' />
-            
-            <div className='header__user-bar'>
-                { props.loggedIn
-                ? (
-                    <>
-                        <p className='header__user-item'>{props.email}</p>
-                        <Link onClick={props.handleLogout} className='header__user-item' to='/sign-in'>Выйти</Link>
-                    </>
-                )
-                : (
-                    <>
-                        <Route path='/sign-in'>
-                            <Link className='header__user-item' to='/sign-up'>Вход</Link>
-                        </Route>
-                        <Route path='/sign-up'>
-                            <Link className='header__user-item' to='/sign-in'>Регистрация</Link>
-                        </Route>
-                    </>
-                )
-                }
+            <div className='header__container'>
+                <img src={logoWhite} alt="Логотип сервиса Место" className='header__logo' />
+                <Routes>
+                    <Route path='/' element={(
+                        <div className='header__user-bar'>
+                            <p className='header__user-item'>{`${props.email}`}</p>
+                            <button className="header__logout" type="button" onClick={props.handleLogout}>Выйти</button>
+                        </div>
+                    )} />
+                    <Route path='/sign-in' element={<Link className='header__user-item' to='/sign-up'>Вход</Link>}/>
+                    <Route path='/sign-up' element={<Link className='header__user-item' to='/sign-in'>Регистрация</Link>}/>
+                </Routes>
             </div>
         </header>
     )

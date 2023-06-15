@@ -1,11 +1,9 @@
 import React from "react";
-import { Link} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 
 export function Register (props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-    //const [errorMessage, setErrorMessage] = React.useState('');
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
@@ -23,25 +21,28 @@ export function Register (props) {
 
     return (
         <div className="authorize">
-            <h3 className="authorize__title">Регистрация</h3>
+            <h1 className="authorize__title">Регистрация</h1>
             <form className="authorize__form" onSubmit={handleSubmit}>
-                <label className="authorize__label" htmlFor="email"> </label>
+                
                 <input className="authorize__input" onChange={handleEmailChange}
-                id="email" type="email" name="email" required value={email || ''}/>
-                <span className="authorize__input-error"/>
-                <label className="authorize__label" htmlFor="password"></label>
+                id="email" type="email" name="email" required value={email || ''}
+                placeholder="Email"/>
+
                 <input className="authorize__input" onChange={handlePasswordChange}
                 id="password" type="password" name="password" required 
-                value={password || ''}/>
-                <span className="authorize__input-error"/>
-                <button className="authorize__submit" type="submit" aria-label="Зарегистрироваться">
+                value={password || ''} placeholder="Пароль"/>
+                
+                <button className="authorize__submit" type="submit" 
+                aria-label="Зарегистрироваться" disabled={props.isNotAvailable}>
                     Зарегистрироваться
                 </button>
             </form>
     
-            <div className="authorize__side-block">
-                <Link className="authorize__side-link" to="sign-in"> Уже зарегистрированы? Войти </Link>
-            </div>
+            <p className="authorize__side-block">Уже зарегистрированы?
+                <div>
+                    <Link className="authorize__side-link" to="/sign-in"> Войти</Link>
+                </div>
+            </p>
         </div>
     )
 }
