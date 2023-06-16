@@ -168,6 +168,7 @@ export function App() {
           localStorage.setItem('token', res.token);
           setEmail(email);
           setPassword(password);
+          setLoggedIn(true);
           navigate('/', {replace: true});
       })
       .catch((err) => {
@@ -329,13 +330,13 @@ export function App() {
           onClose={closeAllPopups} 
           onAddPlace={handleAddPlaceSubmit}/>
 
-        {/* <DeletePlacePopup
+        <DeletePlacePopup
           isOpen={}
           onClose={}
           onConfirmDeleteCard={}
           handleOverlayClick={handleOverlayClick}
           isNotAvailable={isNotAvailable}
-        /> */}
+        />
 
       
       </CurrentUserContext.Provider> 
