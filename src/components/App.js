@@ -269,8 +269,9 @@ export function App() {
   }, [loggedIn]);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="root">
+    <div className="root">
+      <CurrentUserContext.Provider value={currentUser}>
+      
         
         <Header email={email} handleLogout={handleLogout}/>
           
@@ -328,7 +329,16 @@ export function App() {
           onClose={closeAllPopups} 
           onAddPlace={handleAddPlaceSubmit}/>
 
-      </div>
-    </CurrentUserContext.Provider>  
+        {/* <DeletePlacePopup
+          isOpen={}
+          onClose={}
+          onConfirmDeleteCard={}
+          handleOverlayClick={handleOverlayClick}
+          isNotAvailable={isNotAvailable}
+        /> */}
+
+      
+      </CurrentUserContext.Provider> 
+    </div> 
   );
 }
