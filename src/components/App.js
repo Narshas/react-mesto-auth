@@ -85,7 +85,7 @@ export function App() {
     setIsNotAvailable(true);
     api.deleteCard(confirmedDelete._id)
       .then(() => {
-        setCards((cards) => cards.filter((c) => c._id !== confirmedDelete._id))
+        setCards((cards) => cards.filter((c) => c !== confirmedDelete))
       })
       .catch((err) => {
         console.log(err);
@@ -152,8 +152,8 @@ export function App() {
     setIsAddPlacePopupOpen(false);
     setIsZoomPopupOpen(false);
     setInfoTooltipOpen(false);
-    setSelectedCard(null);
-    confirmedDelete(null);
+    //setSelectedCard(null);
+    setConfirmedDelete(null);
 
   }
 
@@ -165,12 +165,10 @@ export function App() {
 
     auth.authorizer({password, email})
       .then((res) => {
-        if (email && password) {
           localStorage.setItem('token', res.token);
           setEmail(email);
           setPassword(password);
-          navigate("/", {replace: true});
-        }
+          navigate('/', {replace: true});
       })
       .catch((err) => {
         console.log(`we've got a problem: ${err}`);
@@ -274,7 +272,7 @@ export function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
         
-        <Header email={email} loggedIn={loggedIn} handleLogout={handleLogout}/>
+        <Header email={email} handleLogout={handleLogout}/>
           
         <Routes>
 
@@ -295,16 +293,17 @@ export function App() {
             </>
           }/>
 
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} isOpen={infoTooltipOpen} onClose={closeAllPopups} />} />
+          <Route path="/sign-in" element={<Login handleLogin={handleLogin} isNotAvailable={isNotAvailable} />} />
             
-          <Route path ="/sign-up" element={<Register handleRegister={handleRegister} isOpen={infoTooltipOpen} onClose={closeAllPopups} />} />
+          <Route path ="/sign-up" element={<Register handleRegister={handleRegister} isNotAvailable={isNotAvailable} />} />
           
         </Routes>
-        {<Footer /> && loggedIn}
+        <Footer />
         <InfoTooltip
           isOpen = {infoTooltipOpen}
           onClose = {closeAllPopups}
           isError = {isError}
+          handleOverlayClick={handleOverlayClick}
         />
         <ImagePopup 
           cardData={selectedCard} 

@@ -1,7 +1,7 @@
 .authorize__submit {
-    padding: 0;
+    padding: 14px 0;
     margin: 216px 0 0;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     border-radius: 2px;
     width: 358px;
     height: 50px;
@@ -10,6 +10,8 @@
     line-height: 21.87px;
     text-align: center;
     border: none;
+    outline: none;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .authorize__submit:hover {

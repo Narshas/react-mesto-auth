@@ -4,13 +4,11 @@
     margin: 0;
     color: #FFFFFF;
     font-size: 18px;
-    font-weight: 500;
-    line-height: 22px;
-
-}
-
-.header__menu-item:last-of-type {
     font-weight: 400;
+    line-height: 22px;
+    font-family: 'Inter', Arial, sans-serif;
+    text-decoration: none;
+
 }
 
 .header__menu-item:last-of-type:hover {

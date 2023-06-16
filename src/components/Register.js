@@ -21,28 +21,30 @@ export function Register (props) {
 
     return (
         <div className="authorize">
-            <h1 className="authorize__title">Регистрация</h1>
-            <form className="authorize__form" onSubmit={handleSubmit}>
-                
-                <input className="authorize__input" onChange={handleEmailChange}
-                id="email" type="email" name="email" required value={email || ''}
-                placeholder="Email"/>
+            <div className="authorize__container">
+                <h1 className="authorize__title">Регистрация</h1>
+                <form className="authorize__form" onSubmit={handleSubmit}>
+                    
+                    <input className="authorize__input" onChange={handleEmailChange}
+                    id="email" type="email" name="email" required value={email || ''}
+                    placeholder="Email"/>
 
-                <input className="authorize__input" onChange={handlePasswordChange}
-                id="password" type="password" name="password" required 
-                value={password || ''} placeholder="Пароль"/>
-                
-                <button className="authorize__submit" type="submit" 
-                aria-label="Зарегистрироваться" disabled={props.isNotAvailable}>
-                    Зарегистрироваться
-                </button>
-            </form>
-    
-            <p className="authorize__side-block">Уже зарегистрированы?
-                <div>
-                    <Link className="authorize__side-link" to="/sign-in"> Войти</Link>
+                    <input className="authorize__input" onChange={handlePasswordChange}
+                    id="password" type="password" name="password" required 
+                    value={password || ''} placeholder="Пароль"/>
+                    
+                    <button className="authorize__submit" type="submit" 
+                    aria-label="Зарегистрироваться" disabled={props.isNotAvailable}>
+                        Зарегистрироваться
+                    </button>
+                </form>
+        
+                <div className="authorize__side-block">
+                    <p className="authorize__side-text">Уже зарегистрированы?
+                        <Link className="authorize__side-link" to="/sign-in"> Войти</Link>
+                    </p>                        
                 </div>
-            </p>
+            </div>
         </div>
     )
 }

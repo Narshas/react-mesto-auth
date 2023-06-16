@@ -1,31 +1,26 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
 import errorLogo from '../images/error-logo.png'; 
 import okLogo from '../images/ok-logo.png';
 
 export function InfoTooltip (props) {
-    
-    const navigate = useNavigate();
-
-    const closeTooltip = () => {
-        if(props.isError) {
-            props.onClose()
-        }
-        props.onClose();
-        navigate('/login', {replace: true}); 
-    }
 
     return (
-        <div className={`popup ${props.isOpen? 'popup_active' : ''}`}>
+        <div className={`popup ${props.isOpen? 'popup_active' : ''}`}
+            onClick={props.handleOverlayClic}>
+
             <div className="popup__container">
-                <button className="popup__close" aria-label="закрыть попап" onClick={closeTooltip}/>
-                <div className="authorize__response">
-                    <img src={!props.isError? errorLogo : okLogo }
+                
+                <img src={!props.isError? okLogo : errorLogo }
                     className="authorize__image"/>
-                    <p className="authorize__info">{`${!props.isError
+
+                <h2 className="authorize__info">
+                    {`${!props.isError
                     ? "Вы успешно зарегистрировались!"
-                    : "Что-то пошло не так! Попробуйте ещё раз."}`}</p>
-                </div>
+                    : "Что-то пошло не так! Попробуйте ещё раз."}`}
+                </h2>
+                
+                <button className="popup__close" aria-label="закрыть попап" onClick={props.onClose}/>
+                
             </div>
         </div>
     )
