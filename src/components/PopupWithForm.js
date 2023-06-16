@@ -1,8 +1,8 @@
 import React from "react";
 
-export function PopupWithForm({ name, title, children, isOpen, submitText, onClose, onSubmit }) {
+export function PopupWithForm({ name, title, children, isOpen, submitText, onClose, onSubmit, onOverlayClick }) {
     return (
-        <div className={`popup popup_type_${name} ${isOpen ? "popup_active" : ""}`}>
+        <div className={`popup popup_type_${name} ${isOpen ? "popup_active" : ""}`} onClick={onOverlayClick}>
             <div className="popup__container">
                 <button type="button" className="popup__close popup__close_place" 
                 aria-label="закрыть попап" onClick={onClose}></button>

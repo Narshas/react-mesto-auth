@@ -331,9 +331,9 @@ export function App() {
           onAddPlace={handleAddPlaceSubmit}/>
 
         <DeletePlacePopup
-          isOpen={}
-          onClose={}
-          onConfirmDeleteCard={}
+          isOpen={isPopupDeleteOpen}
+          onClose={closeAllPopups}
+          onConfirmDeleteCard={handleConfirmDeleteCard}
           handleOverlayClick={handleOverlayClick}
           isNotAvailable={isNotAvailable}
         />
