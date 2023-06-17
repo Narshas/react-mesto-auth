@@ -11,6 +11,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { EditProfilePopup } from "./EditProfilePopup";
 import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
+import { DeletePlacePopup } from "./DeletePlacePopup";
 
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Login } from "./Login";
@@ -36,7 +37,6 @@ export function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [infoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
-  const [isNotAvailable, setIsNotAvailable] = React.useState(false);
   const [confirmedDelete, setConfirmedDelete] = React.useState(null);
   const [isPopupDeleteOpen, setIsPopupDeleteOpen] = React.useState(false);
 
@@ -44,17 +44,14 @@ export function App() {
   || isAddPlacePopupOpen || infoTooltipOpen || selectedCard
 
   const handleEditAvatarClick = () => {
-    setIsNotAvailable(false);
     setIsEditAvatarPopupOpen(true);
   }
 
   const handleEditProfileClick = () => {
-    setIsNotAvailable(false);
     setIsEditProfilePopupOpen(true);
   }
 
   const handleAddPlaceClick = () => {
-    setIsNotAvailable(false);
     setIsAddPlacePopupOpen(true);
   }
 
@@ -76,26 +73,22 @@ export function App() {
   }
 
   function handleDeleteClick(card) {
-    setIsNotAvailable(false);
     setIsPopupDeleteOpen(true);
     setConfirmedDelete(card);
   }
   
   const handleConfirmDeleteCard = () => {
-    setIsNotAvailable(true);
     api.deleteCard(confirmedDelete._id)
       .then(() => {
         setCards((cards) => cards.filter((c) => c !== confirmedDelete))
       })
       .catch((err) => {
         console.log(err);
-        setIsNotAvailable(false);
       });
   }
     
 
   function handleUpdateUser(userData) {
-    setIsNotAvailable(true);
     setIsLoading(true);
     api.patchUserInfo(userData)
       .then(res => {
@@ -107,12 +100,10 @@ export function App() {
       })
       .finally(() => {
         setIsLoading(false);
-        setIsNotAvailable(false);
       });
   }
 
   function handleUpdateAvatar(avatarData) {
-    setIsNotAvailable(true);
     setIsLoading(true);
     api.patchAvatar(avatarData)
       .then(res => {
@@ -121,7 +112,6 @@ export function App() {
       })
       .catch((err) => {
         console.log(err);
-        setIsNotAvailable(false);
       })
       .finally(() => {
         setIsLoading(false);
@@ -130,7 +120,6 @@ export function App() {
   }
 
   function handleAddPlaceSubmit(cardInfo) {
-    setIsNotAvailable(true);
     setIsLoading(true);
     api.postNewCard(cardInfo)
       .then(newCard => {
@@ -139,7 +128,6 @@ export function App() {
       })
       .catch((err) => {
         console.log(err);
-        setIsNotAvailable(false);
       })
       .finally(() => {
         setIsLoading(false);
@@ -161,8 +149,6 @@ export function App() {
   const navigate = useNavigate();
 
   const handleLogin = ({password, email}) => {
-    setIsNotAvailable(true);
-
     auth.authorizer({password, email})
       .then((res) => {
           localStorage.setItem('token', res.token);
@@ -176,13 +162,9 @@ export function App() {
         setInfoTooltipOpen(true);
         setIsError(true);
       })
-      .finally(() => {
-        setIsNotAvailable(false);
-      })
   }
 
   const handleRegister = (password, email) => {
-    setIsNotAvailable(true);
 
     auth.register({password, email})
       .then(() => {
@@ -195,9 +177,7 @@ export function App() {
         setInfoTooltipOpen(true);
         setIsError(true);
       })
-      .finally(() => {
-        setIsNotAvailable(false);
-      })
+      
   }
 
   const handleLogout = () => {
@@ -295,9 +275,9 @@ export function App() {
             </>
           }/>
 
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} isNotAvailable={isNotAvailable} />} />
+          <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
             
-          <Route path ="/sign-up" element={<Register handleRegister={handleRegister} isNotAvailable={isNotAvailable} />} />
+          <Route path ="/sign-up" element={<Register handleRegister={handleRegister} />} />
           
         </Routes>
         <Footer />
@@ -335,7 +315,6 @@ export function App() {
           onClose={closeAllPopups}
           onConfirmDeleteCard={handleConfirmDeleteCard}
           handleOverlayClick={handleOverlayClick}
-          isNotAvailable={isNotAvailable}
         />
 
       

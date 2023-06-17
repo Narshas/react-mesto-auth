@@ -16,7 +16,6 @@ export function DeletePlacePopup (props) {
             onClose={props.onClose} 
             onSubmit={handleSubmit}
             onOverlayClick={props.handleOverlayClick}
-            isNotAvailable={props.isNotAvailable}
         />
     )
 }
