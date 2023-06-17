@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, BroweserRouter, Route, Routes } from 'react-router-dom';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 
 import { ImagePopup } from "./ImagePopup";
 import { Header } from "./Header";
@@ -41,10 +41,11 @@ export function App() {
   const [isPopupDeleteOpen, setIsPopupDeleteOpen] = React.useState(false);
 
   const isAnyPopupOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen 
-  || isAddPlacePopupOpen || infoTooltipOpen || selectedCard
+  || isAddPlacePopupOpen || infoTooltipOpen || selectedCard || isPopupDeleteOpen
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
+    console.log("avatar click")
   }
 
   const handleEditProfileClick = () => {
@@ -72,15 +73,17 @@ export function App() {
     setIsZoomPopupOpen(true);
   }
 
-  function handleDeleteClick(card) {
+  const handleDeleteClick = (card) => {
     setIsPopupDeleteOpen(true);
     setConfirmedDelete(card);
+    console.log(card);
   }
   
   const handleConfirmDeleteCard = () => {
-    api.deleteCard(confirmedDelete._id)
+    api.deleteCard(confirmedDelete)
       .then(() => {
-        setCards((cards) => cards.filter((c) => c !== confirmedDelete))
+        setCards((cards) => cards.filter((c) => c !== confirmedDelete));
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -142,6 +145,7 @@ export function App() {
     setInfoTooltipOpen(false);
     //setSelectedCard(null);
     setConfirmedDelete(null);
+    setIsPopupDeleteOpen(false);
 
   }
 
@@ -156,6 +160,7 @@ export function App() {
           setPassword(password);
           setLoggedIn(true);
           navigate('/', {replace: true});
+          console.log(res.token);
       })
       .catch((err) => {
         console.log(`we've got a problem: ${err}`);
@@ -184,13 +189,15 @@ export function App() {
     localStorage.removeItem('token');
     setLoggedIn(false);
     setEmail('');
-    navigate('/sign-in', { replace: true });
+    navigate('/sign-in', {replace: true});
   }
 
   const handleOverlayClick = (e) => {
+    e.stopPropagation();
     if (e.target === e.currentTarget) {
       closeAllPopups();
     }
+    console.log('click overlay')
   }
 
   React.useEffect(() => {
@@ -212,7 +219,7 @@ export function App() {
 
   React.useEffect(() => {
     function closeByEsc(e) {
-      if(e.key === 'Escape') {
+      if (e.key === 'Escape') {
         closeAllPopups();
       }
     }
@@ -227,12 +234,12 @@ export function App() {
   React.useEffect(() => {
     if (loggedIn) {
       api.getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-          console.log(err);
-      });
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
    
   }, [loggedIn]);
@@ -269,7 +276,7 @@ export function App() {
                 onCardClick={handleCardClick} 
                 onCardLike={handleCardLike} 
                 onCardDelete={handleDeleteClick}
-                //onClose={closeAllPopups}
+                onClose={closeAllPopups}
 
               />
             </>

@@ -31,7 +31,7 @@ export function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             <div className="elements__block">
                 <h2 className="elements__title">{card.name}</h2>
                 <div className="elements__like-container">
-                    <button type="button" className="elements__like-button" aria-label="поставить лайк месту" onClick={handleCardLike}></button>
+                    <button type="button" className={cardLikeButtonClassName} aria-label="поставить лайк месту" onClick={handleCardLike}></button>
                     <p className="elements__like-counter">{card.likes.length}</p>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { PopupWithForm } from "./PopupWithForm";
 export function DeletePlacePopup (props) {
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.handleConfirmDeleteCard();
+        props.onConfirmDeleteCard();
     }
 
     return (
