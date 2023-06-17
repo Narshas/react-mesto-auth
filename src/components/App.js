@@ -258,9 +258,9 @@ export function App() {
   }, [loggedIn]);
 
   return (
-    <div className="root">
-      <CurrentUserContext.Provider value={currentUser}>
-      
+    
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="root">
         
         <Header email={email} handleLogout={handleLogout}/>
           
@@ -288,7 +288,6 @@ export function App() {
           <Route path ="/sign-up" element={<Register handleRegister={handleRegister} />} />
           
         </Routes>
-        <Footer />
         <InfoTooltip
           isOpen = {infoTooltipOpen}
           onClose = {closeAllPopups}
@@ -328,9 +327,9 @@ export function App() {
           onConfirmDeleteCard={handleConfirmDeleteCard}
           handleOverlayClick={handleOverlayClick}
         />
-
-      
-      </CurrentUserContext.Provider> 
-    </div> 
+        <Footer />
+      </div> 
+    </CurrentUserContext.Provider> 
+    
   );
 }

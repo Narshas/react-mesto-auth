@@ -74,7 +74,7 @@ class Api {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: avatarData.avatarurl
+                avatar: avatarData.avatar
             })
         })
             .then(res => this._testRes(res))

@@ -19,7 +19,7 @@ export function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardCli
             <section className='profile'>
                 <div className='profile__avatar-container'>
                     <img src={currentUser.avatar} alt="фото пользователя"
-                        className='profile__avatar' />
+                        className='profile__avatar' onClick={onEditAvatar}/>
                     <img src={avatarButton} alt='Кнопка редактирования аватара'
                         className='profile__avatar-edit' onClick={onEditAvatar} />
                 </div>
