@@ -20,8 +20,11 @@ export function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     const cardLikeButtonClassName = ( 
         `elements__like-button ${isLiked && 'elements__like-button_active'}` 
-      );
-      //положить переменную в поле класса кнопки лайка 
+    );
+
+    console.log("urrentUser._id", currentUser._id);
+    console.log("isLiked", isLiked);
+
 
     return (
         <li className="elements__item">

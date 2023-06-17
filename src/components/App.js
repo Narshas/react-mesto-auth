@@ -193,6 +193,7 @@ export function App() {
   }
 
   const handleOverlayClick = (e) => {
+    console.log('click overlay')
     e.stopPropagation();
     if (e.target === e.currentTarget) {
       closeAllPopups();
@@ -297,25 +298,29 @@ export function App() {
         <ImagePopup 
           cardData={selectedCard} 
           onClose={closeAllPopups} 
-          isOpen={isZoomPopupOpen} />
+          isOpen={isZoomPopupOpen} 
+          handleOverlayClick={handleOverlayClick}/>
 
         <EditAvatarPopup 
           isLoading={isLoading} 
           isOpen={isEditAvatarPopupOpen} 
           onClose={closeAllPopups} 
-          onUpdateAvatar={handleUpdateAvatar}/>
+          onUpdateAvatar={handleUpdateAvatar}
+          handleOverlayClick={handleOverlayClick}/>
 
         <EditProfilePopup 
           isLoading={isLoading} 
           isOpen={isEditProfilePopupOpen} 
           onClose={closeAllPopups} 
-          onUpdateUser={handleUpdateUser}/>
+          onUpdateUser={handleUpdateUser}
+          handleOverlayClick={handleOverlayClick}/>
 
         <AddPlacePopup 
           isLoading={isLoading} 
           isOpen={isAddPlacePopupOpen} 
           onClose={closeAllPopups} 
-          onAddPlace={handleAddPlaceSubmit}/>
+          onAddPlace={handleAddPlaceSubmit}
+          handleOverlayClick={handleOverlayClick}/>
 
         <DeletePlacePopup
           isOpen={isPopupDeleteOpen}

@@ -2,7 +2,7 @@ import React from "react";
 import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export function EditAvatarPopup({isLoading, isOpen, onClose, onUpdateAvatar}) {
+export function EditAvatarPopup({isLoading, isOpen, onClose, onUpdateAvatar, handleOverlayClick}) {
     const currentUser = React.useContext(CurrentUserContext);
     const avatarRef = React.useRef();
     
@@ -19,7 +19,7 @@ export function EditAvatarPopup({isLoading, isOpen, onClose, onUpdateAvatar}) {
       } 
 
     return (
-        <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isOpen} submitText={isLoading ? 'Сохранение...' : 'Сохранить'} onClose={onClose} onSubmit={handleSubmit}>
+        <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isOpen} submitText={isLoading ? 'Сохранение...' : 'Сохранить'} onClose={onClose} onSubmit={handleSubmit} onOverlayClick={handleOverlayClick}>
           <label className="popup__label"></label>
           <input ref={avatarRef} name="avatarurl" required id="avatar-input" type="url" className="popup__input popup__input_avatar"
             placeholder="Ссылка на новый аватар" />

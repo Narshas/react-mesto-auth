@@ -6,7 +6,7 @@ export function InfoTooltip (props) {
 
     return (
         <div className={`popup ${props.isOpen? 'popup_active' : ''}`}
-            onClick={props.handleOverlayClic}>
+            onClick={props.handleOverlayClick}>
 
             <div className="popup__container">
                 
