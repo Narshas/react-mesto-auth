@@ -15,7 +15,7 @@ export function Header(props) {
                         </div>
                     )} />
                     <Route path='/sign-in' element={(<><Link className='header__user-item' to='/sign-up'>Регистрация</Link></>)}/>
-                    <Route path='/sign-up' element={(<><Link className='header__user-item' to='/sign-in'>Вход</Link></>)}/>
+                    <Route path='/sign-up' element={(<><Link className='header__user-item' to='/sign-in'>Войти</Link></>)}/>
                 </Routes>
             </div>
         </header>

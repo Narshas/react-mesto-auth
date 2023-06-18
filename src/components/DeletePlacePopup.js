@@ -15,7 +15,7 @@ export function DeletePlacePopup (props) {
             submitText="Да"
             onClose={props.onClose} 
             onSubmit={handleSubmit}
-            onOverlayClick={props.handleOverlayClick}
+            onOverlayClick={props.onOverlayClick}
         />
     )
 }

@@ -6,7 +6,7 @@ export function InfoTooltip (props) {
 
     return (
         <div className={`popup ${props.isOpen? 'popup_active' : ''}`}
-            onClick={props.handleOverlayClick}>
+            onClick={props.onOverlayClick}>
 
             <div className="popup__container">
                 
@@ -19,7 +19,7 @@ export function InfoTooltip (props) {
                     : "Что-то пошло не так! Попробуйте ещё раз."}`}
                 </h2>
                 
-                <button className="popup__close" aria-label="закрыть попап" onClick={props.onClose}/>
+                <button className="popup__close" aria-label="закрыть попап" onClick={props.onOverlayClick}/>
                 
             </div>
         </div>

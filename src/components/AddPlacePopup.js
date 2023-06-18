@@ -1,7 +1,7 @@
 import React from "react";
 import { PopupWithForm } from "./PopupWithForm";
 
-export function AddPlacePopup({isLoading, isOpen, onClose, onAddPlace, handleOverlayClick}) {
+export function AddPlacePopup({isLoading, isOpen, onClose, onAddPlace, onOverlayClick}) {
     const [placeName, setPlaceName] = React.useState('');
     const [placeLink, setPlaceLink] = React.useState('');
 
@@ -28,7 +28,7 @@ export function AddPlacePopup({isLoading, isOpen, onClose, onAddPlace, handleOve
       } 
 
     return (
-        <PopupWithForm name="place" title="Новое место" isOpen={isOpen} submitText={isLoading ? 'Сохранение...' : 'Сохранить'} onClose={onClose} onSubmit={handleSubmit} onOverlayClick={handleOverlayClick}>
+        <PopupWithForm name="place" title="Новое место" isOpen={isOpen} submitText={isLoading ? 'Сохранение...' : 'Сохранить'} onClose={onClose} onSubmit={handleSubmit} onOverlayClick={onOverlayClick}>
           <label className="popup__label"></label>
           <input value={placeName || ""} onChange={handleNameChange} name="placetext" required id="place-name-input" type="text" minLength="2" maxLength="30"
             className="popup__input popup__input_place" placeholder="Какое место хотите добавить?" />

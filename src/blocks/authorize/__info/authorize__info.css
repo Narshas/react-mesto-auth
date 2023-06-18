@@ -1,6 +1,6 @@
 .authorize__info {
     padding: 0;
-    margin-bottom: 60px;
+    margin-bottom: 23px;
     font-size: 24px;
     font-weight: 900;
     line-height: 29px;
@@ -8,10 +8,10 @@
 
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 600px) {
     .authorize__info {
         font-size: 20px;
         line-height: 24px;
-        margin-bottom: 50px;
+        margin-bottom: 25px;
     }
 }

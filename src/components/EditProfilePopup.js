@@ -3,7 +3,7 @@ import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 
-export function EditProfilePopup({isLoading, isOpen, onClose, onUpdateUser, handleOverlayClick}) {
+export function EditProfilePopup({isLoading, isOpen, onClose, onUpdateUser, onOverlayClick}) {
     const [userName, setUserName] = React.useState('');
     const [userAbout, setUserAbout] = React.useState('');
     const currentUser = React.useContext(CurrentUserContext);
@@ -30,7 +30,7 @@ export function EditProfilePopup({isLoading, isOpen, onClose, onUpdateUser, hand
     }
 
     return (
-        <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isOpen} submitText={isLoading ? 'Сохранение...' : 'Сохранить'} onClose={onClose} onSubmit={handleSubmit} onOverlayClick={handleOverlayClick}>
+        <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isOpen} submitText={isLoading ? 'Сохранение...' : 'Сохранить'} onClose={onClose} onSubmit={handleSubmit} onOverlayClick={onOverlayClick}>
                 <label className="popup__label"></label>
                 <input value={userName || ""} onChange={handleNameChange} name="profilename" id="username-input" type="text" minLength="2" maxLength="40"
                     className="popup__input popup__input_profilename" required />

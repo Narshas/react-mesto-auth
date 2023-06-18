@@ -257,6 +257,11 @@ export function App() {
     }
   }, [loggedIn]);
 
+  // React.useEffect(() => {
+  //   setEmail('');
+  //   setPassword('');
+  // }, []);
+
   return (
     
     <CurrentUserContext.Provider value={currentUser}>
@@ -292,40 +297,40 @@ export function App() {
           isOpen = {infoTooltipOpen}
           onClose = {closeAllPopups}
           isError = {isError}
-          handleOverlayClick={handleOverlayClick}
+          onOverlayClick={handleOverlayClick}
         />
         <ImagePopup 
           cardData={selectedCard} 
           onClose={closeAllPopups} 
           isOpen={isZoomPopupOpen} 
-          handleOverlayClick={handleOverlayClick}/>
+          onOverlayClick={handleOverlayClick}/>
 
         <EditAvatarPopup 
           isLoading={isLoading} 
           isOpen={isEditAvatarPopupOpen} 
           onClose={closeAllPopups} 
           onUpdateAvatar={handleUpdateAvatar}
-          handleOverlayClick={handleOverlayClick}/>
+          onOverlayClick={handleOverlayClick}/>
 
         <EditProfilePopup 
           isLoading={isLoading} 
           isOpen={isEditProfilePopupOpen} 
           onClose={closeAllPopups} 
           onUpdateUser={handleUpdateUser}
-          handleOverlayClick={handleOverlayClick}/>
+          onOverlayClick={handleOverlayClick}/>
 
         <AddPlacePopup 
           isLoading={isLoading} 
           isOpen={isAddPlacePopupOpen} 
           onClose={closeAllPopups} 
           onAddPlace={handleAddPlaceSubmit}
-          handleOverlayClick={handleOverlayClick}/>
+          onOverlayClick={handleOverlayClick}/>
 
         <DeletePlacePopup
           isOpen={isPopupDeleteOpen}
           onClose={closeAllPopups}
           onConfirmDeleteCard={handleConfirmDeleteCard}
-          handleOverlayClick={handleOverlayClick}
+          onOverlayClick={handleOverlayClick}
         />
         <Footer />
       </div> 
